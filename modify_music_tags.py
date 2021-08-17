@@ -2,6 +2,7 @@ import os
 import click
 import eyed3
 
+DEFAULT_PATH = "/Users/liqiangding/Music/2020/"
 
 @click.group()
 def run():
