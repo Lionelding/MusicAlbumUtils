@@ -16,11 +16,7 @@ def add_cover_image_to_music(music_path, image_path, metatag):
     
 	audiofile.tag.images.set(3, open(image_path,'rb').read(), 'image/jpeg')
 
-	audiofile.tag.album = metatag
-	audiofile.tag.album_artist = metatag
-	audiofile.tag.artist = metatag
-	audiofile.tag.composer = metatag
-	audiofile.tag.publisher = metatag
+	audiofile.tag.title = metatag
 	audiofile.tag.save()
 	return
 
@@ -30,7 +26,9 @@ def add_cover_image_to_music(music_path, image_path, metatag):
 @click.option('--image_path', '-i', help='path to the image')
 @click.option('--metatag', '-t', help='meta tag')
 def main(music_path, image_path, metatag):
-	add_cover_image_to_music(music_path, image_path, metatag)
+	music_name = music_path.split("/")[-1]
+	music_name = music_path.split(".")[0]
+	add_cover_image_to_music(music_path, image_path, music_name)
 
 
 
