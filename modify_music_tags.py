@@ -2,7 +2,7 @@ import os
 import click
 import eyed3
 
-DEFAULT_PATH = "/Users/liqiangding/Music/2020/"
+# DEFAULT_PATH = "/Users/liqiangding/Music/2020/"
 
 @click.group()
 def run():
@@ -11,12 +11,13 @@ def run():
 def add_cover_image_to_music(music_path, image_path, metatag):
 
 	audiofile = eyed3.load(music_path)
-	if (audiofile.tag == None):
-	    audiofile.initTag()
-    
-	audiofile.tag.images.set(3, open(image_path,'rb').read(), 'image/jpeg')
+	# import pdb;pdb.set_trace()
 
-	audiofile.tag.title = metatag
+	# if (audiofile.tag == None):
+	audiofile.initTag()
+	
+	audiofile.tag.images.set(3, open(image_path,'rb').read(), 'image/jpeg')
+	audiofile.tag.title = os.path.basename(music_path)[:-4]
 	audiofile.tag.save()
 	return
 
