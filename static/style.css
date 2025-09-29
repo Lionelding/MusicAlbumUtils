@@ -1,0 +1,464 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 2rem;
+}
+
+h2 {
+    color: #555;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+/* Dropzone styles */
+.dropzone {
+    border: 3px dashed #ddd;
+    border-radius: 8px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #fafafa;
+    margin-bottom: 20px;
+}
+
+.dropzone:hover {
+    border-color: #667eea;
+    background: #f5f5ff;
+}
+
+.dropzone.dragover {
+    border-color: #667eea;
+    background: #e8e8ff;
+    transform: scale(1.02);
+}
+
+.dropzone-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.dropzone .icon {
+    color: #999;
+    transition: color 0.3s;
+}
+
+.dropzone:hover .icon {
+    color: #667eea;
+}
+
+.dropzone p {
+    color: #666;
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* File info display */
+.file-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: #f8f8f8;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.file-name {
+    color: #333;
+    font-weight: 500;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 15px;
+}
+
+/* Metadata section */
+.metadata-container {
+    margin-bottom: 30px;
+}
+
+.metadata-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.field-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.field-group label {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.metadata-field {
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.metadata-field:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* Cover section */
+.cover-container {
+    margin-bottom: 30px;
+}
+
+.cover-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.cover-dropzone {
+    width: 300px;
+    height: 300px;
+    border: 3px dashed #ddd;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #fafafa;
+    position: relative;
+    overflow: hidden;
+}
+
+.cover-dropzone:hover {
+    border-color: #667eea;
+    background: #f5f5ff;
+}
+
+.cover-dropzone.dragover {
+    border-color: #667eea;
+    background: #e8e8ff;
+}
+
+#cover-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.cover-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: #999;
+}
+
+.cover-placeholder .icon {
+    color: #999;
+}
+
+/* Buttons */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #5a67d8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-success {
+    background: #48bb78;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #38a169;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
+}
+
+.btn-secondary {
+    background: #718096;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #4a5568;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(113, 128, 150, 0.4);
+}
+
+/* Action buttons */
+.action-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* Status messages */
+.status-message {
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 500;
+    display: none;
+}
+
+.status-message.info {
+    background: #bee3f8;
+    color: #2c5282;
+    border: 1px solid #90cdf4;
+}
+
+.status-message.success {
+    background: #c6f6d5;
+    color: #22543d;
+    border: 1px solid #9ae6b4;
+}
+
+.status-message.error {
+    background: #fed7d7;
+    color: #742a2a;
+    border: 1px solid #fc8181;
+}
+
+/* Mode toggle styles */
+.mode-toggle {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.mode-btn {
+    padding: 10px 20px;
+    background: #f0f0f0;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.mode-btn:hover {
+    background: #e8e8e8;
+}
+
+.mode-btn.active {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+/* Songs list styles */
+#songs-list {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.song-item {
+    display: grid;
+    grid-template-columns: 200px 50px 1fr;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #f0f0f0;
+    gap: 15px;
+}
+
+.song-item:last-child {
+    border-bottom: none;
+}
+
+.song-filename {
+    color: #666;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.song-track {
+    background: #667eea;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    min-width: 35px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.song-title {
+    flex: 1;
+}
+
+.song-title-input {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+}
+
+.album-cover-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: #999;
+}
+
+/* Modal styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.file-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin: 15px 0;
+}
+
+.file-item {
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.file-item:hover {
+    background: #f5f5ff;
+    border-color: #667eea;
+}
+
+.file-item:last-child {
+    margin-bottom: 0;
+}
+
+.file-name {
+    font-weight: 500;
+    color: #333;
+}
+
+.file-path {
+    font-size: 12px;
+    color: #666;
+    margin-top: 2px;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .metadata-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cover-dropzone {
+        width: 250px;
+        height: 250px;
+    }
+
+    .action-container {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .modal-content {
+        padding: 20px;
+        margin: 20px;
+    }
+}

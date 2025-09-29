@@ -1,4 +1,5 @@
 import os
+
 import click
 import eyed3
 
@@ -14,7 +15,7 @@ def add_cover_image_to_music(music_path, image_path, metatag):
 	# import pdb;pdb.set_trace()
 
 	# if (audiofile.tag == None):
-	audiofile.initTag()
+	# audiofile.initTag()
 	
 	audiofile.tag.images.set(3, open(image_path,'rb').read(), 'image/jpeg')
 	audiofile.tag.title = os.path.basename(music_path)[:-4]

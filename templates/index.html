@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Metadata Editor</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Music Metadata Editor</h1>
+
+        <!-- Mode Toggle -->
+        <div class="mode-toggle">
+            <button id="single-mode-btn" class="mode-btn active">Single Mode</button>
+            <button id="album-mode-btn" class="mode-btn">Album Mode</button>
+        </div>
+
+        <!-- Single Mode Section -->
+        <div id="single-mode-section">
+        <!-- MP3 File Drop Zone -->
+        <div id="mp3-dropzone" class="dropzone">
+            <div class="dropzone-content">
+                <div class="icon" style="font-size: 50px;">🎵</div>
+                <p>Drag & drop MP3 file here or click to browse</p>
+                <input type="file" id="mp3-input" accept=".mp3,audio/mpeg" hidden>
+            </div>
+        </div>
+
+        <!-- Current File Display -->
+        <div id="current-file" class="file-info" style="display: none;">
+            <span class="file-name"></span>
+            <button id="scan-btn" class="btn btn-primary">Scan Metadata</button>
+        </div>
+
+        <!-- Metadata Section -->
+        <div id="metadata-section" class="metadata-container" style="display: none;">
+            <h2>Metadata</h2>
+            <div class="metadata-grid">
+                <div class="field-group">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" class="metadata-field">
+                </div>
+                <div class="field-group">
+                    <label for="artist">Artist</label>
+                    <input type="text" id="artist" class="metadata-field">
+                </div>
+                <div class="field-group">
+                    <label for="album">Album</label>
+                    <input type="text" id="album" class="metadata-field">
+                </div>
+                <div class="field-group">
+                    <label for="year">Year</label>
+                    <input type="text" id="year" class="metadata-field">
+                </div>
+                <div class="field-group">
+                    <label for="genre">Genre</label>
+                    <input type="text" id="genre" class="metadata-field">
+                </div>
+                <div class="field-group">
+                    <label for="track">Track Number</label>
+                    <input type="text" id="track" class="metadata-field">
+                </div>
+            </div>
+        </div>
+
+        <!-- Album Cover Section -->
+        <div id="cover-section" class="cover-container" style="display: none;">
+            <h2>Album Cover</h2>
+            <div class="cover-wrapper">
+                <div id="cover-dropzone" class="cover-dropzone">
+                    <img id="cover-preview" src="" alt="Album cover" style="display: none;">
+                    <div class="cover-placeholder">
+                        <div class="icon" style="font-size: 50px;">🖼️</div>
+                        <p>Drag & drop new cover image</p>
+                    </div>
+                    <input type="file" id="cover-input" accept="image/*" hidden>
+                </div>
+                <div class="cover-status" style="margin-top: 10px; text-align: center;">
+                    <span id="cover-status-text" style="color: #666; font-size: 14px;"></span>
+                    <button id="remove-cover-btn" class="btn btn-secondary" style="display: none; margin-top: 10px;">Remove Cover</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div id="action-buttons" class="action-container" style="display: none;">
+            <button id="save-btn" class="btn btn-success">Save Changes</button>
+            <button id="reset-btn" class="btn btn-secondary">Reset</button>
+        </div>
+        </div> <!-- End Single Mode Section -->
+
+        <!-- Album Mode Section -->
+        <div id="album-mode-section" style="display: none;">
+            <!-- Directory Selection -->
+            <div class="dropzone" id="folder-dropzone">
+                <div class="dropzone-content">
+                    <div class="icon" style="font-size: 50px;">📁</div>
+                    <p>Select folder containing MP3 files</p>
+                    <input type="file" id="folder-input" webkitdirectory directory multiple hidden>
+                </div>
+            </div>
+
+            <!-- Songs Preview -->
+            <div id="songs-preview" style="display: none;">
+                <h2>Songs in Album</h2>
+                <div class="songs-header" style="display: grid; grid-template-columns: 200px 50px 1fr; gap: 15px; padding: 10px; font-weight: bold; color: #666; border-bottom: 2px solid #e0e0e0;">
+                    <span>Original File</span>
+                    <span style="text-align: center;">Track</span>
+                    <span>Title</span>
+                </div>
+                <div id="songs-list"></div>
+            </div>
+
+            <!-- Album Metadata -->
+            <div id="album-metadata" style="display: none;">
+                <h2>Album Information</h2>
+                <div class="metadata-grid">
+                    <div class="field-group">
+                        <label for="album-artist">Artist</label>
+                        <input type="text" id="album-artist" class="metadata-field">
+                    </div>
+                    <div class="field-group">
+                        <label for="album-name">Album</label>
+                        <input type="text" id="album-name" class="metadata-field">
+                    </div>
+                    <div class="field-group">
+                        <label for="album-year">Year</label>
+                        <input type="text" id="album-year" class="metadata-field">
+                    </div>
+                    <div class="field-group">
+                        <label for="album-genre">Genre</label>
+                        <input type="text" id="album-genre" class="metadata-field">
+                    </div>
+                </div>
+
+                <!-- Album Cover -->
+                <h2>Album Cover</h2>
+                <div class="cover-wrapper">
+                    <div id="album-cover-dropzone" class="cover-dropzone">
+                        <img id="album-cover-preview" src="" alt="Album cover" style="display: none;">
+                        <div class="album-cover-placeholder">
+                            <div class="icon" style="font-size: 50px;">🖼️</div>
+                            <p>Drag & drop album cover image</p>
+                        </div>
+                        <input type="file" id="album-cover-input" accept="image/*" hidden>
+                    </div>
+                </div>
+
+                <!-- Batch Action Buttons -->
+                <div class="action-container" style="margin-top: 20px;">
+                    <button id="batch-save-btn" class="btn btn-success">Save All Songs</button>
+                    <button id="batch-reset-btn" class="btn btn-secondary">Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Messages -->
+        <div id="status" class="status-message"></div>
+
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
