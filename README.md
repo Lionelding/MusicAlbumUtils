@@ -16,3 +16,22 @@ This is a collection of Python tools that help you:
 - Organize and sort your music files
 
 It's nothing fancy, just some scripts I put together to manage my own music collection. Hope it helps you too.
+
+## Requirements
+
+- Python 3.10 or higher
+
+### Dependencies
+
+```bash
+pip install eyed3 yt-dlp click xmltodict mutagen flask werkzeug
+```
+
+Or install individually:
+- `eyed3` - MP3 metadata manipulation
+- `yt-dlp` - Video/audio downloading from YouTube and Bilibili
+- `click` - Command-line interface creation
+- `xmltodict` - XML parsing for iTunes playlists
+- `mutagen` - Audio metadata handling
+- `flask` - Web interface
+- `werkzeug` - Flask utilities
